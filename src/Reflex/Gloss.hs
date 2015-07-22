@@ -2,7 +2,7 @@
 {-# LANGUAGE RankNTypes       #-}
 
 
-module Graphics.Gloss.Interface.FRP.Reflex
+module Reflex.Gloss
   ( playReflex
   , InputEvent )
   where
