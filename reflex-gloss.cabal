@@ -1,5 +1,5 @@
 name:                reflex-gloss
-version:             0.1
+version:             0.1.0.1
 synopsis:            An reflex interface for gloss.
 description:         This package exports a simple wrapper, in terms of
                      Graphics.Gloss.Interface.IO.Game, that allows full

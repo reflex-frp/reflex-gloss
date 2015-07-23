@@ -1,10 +1,21 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE RankNTypes       #-}
 
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Reflex.Gloss
+-- Copyright   :  (c) 2015 Jeffrey Rosenbluth
+-- License     :  BSD-style (see LICENSE)
+-- Maintainer  :  jeffrey.rosenbluth@gmail.com
+--
+-- A Gloss interface for Reflex.
+--
+-------------------------------------------------------------------------------
 
 module Reflex.Gloss
   ( playReflex
-  , InputEvent )
+  , InputEvent
+  , GlossApp )
   where
 
 import           Control.Monad.Fix      (MonadFix)
@@ -20,13 +31,16 @@ import qualified Graphics.Gloss.Interface.IO.Game as G
 import           Reflex
 import           Reflex.Host.Class (newEventWithTriggerRef, runHostFrame, fireEvents)
 
+-- | Synonym for a Gloss Event to prevent name clashes.
 type InputEvent = G.Event
 
+-- | Convert the refresh and input events to a Behavior t Picture.
 type GlossApp t m = (Reflex t, MonadHold t m, MonadFix m)
                   => Event t Float
                   -> Event t InputEvent
                   -> m (Behavior t Picture)
-
+-- | Play the 'GlossApp' in a window, updating when the Behavior t Picture
+--   changes.
 playReflex
   :: Display
   -> Color
