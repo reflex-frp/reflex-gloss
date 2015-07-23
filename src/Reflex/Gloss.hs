@@ -42,10 +42,10 @@ type GlossApp t m = (Reflex t, MonadHold t m, MonadFix m)
 -- | Play the 'GlossApp' in a window, updating when the Behavior t Picture
 --   changes.
 playReflex
-  :: Display
-  -> Color
-  -> Int
-  -> (forall t m. GlossApp t m)
+  :: Display                    -- ^ Display mode.
+  -> Color                      -- ^ Background color.
+  -> Int                        -- ^ Maximum frames per second.
+  -> (forall t m. GlossApp t m) -- ^ A reflex function that returns a 'Behavior t Picture'
   -> IO ()
 playReflex display color frequency network =
   runSpiderHost $ do
