@@ -19,6 +19,7 @@ module Reflex.Gloss
   where
 
 import           Control.Monad.Fix      (MonadFix)
+import           Control.Monad.Identity
 import           Control.Monad.IO.Class (liftIO)
 import           Data.Dependent.Sum (DSum ((:=>)))
 import           Data.IORef             (readIORef)
@@ -67,4 +68,4 @@ playReflex display color frequency network =
       mETrigger <- liftIO $ readIORef trigger
       case mETrigger of
         Nothing       -> return ()
-        Just eTrigger -> fireEvents [eTrigger :=> e]
+        Just eTrigger -> fireEvents [eTrigger :=> Identity e]
