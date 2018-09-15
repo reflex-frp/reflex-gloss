@@ -1,5 +1,5 @@
 name:                reflex-gloss
-version:             0.2
+version:             0.3
 synopsis:            An reflex interface for gloss.
 description:         This package exports a simple wrapper, in terms of
                      Graphics.Gloss.Interface.IO.Game, that allows full
@@ -22,8 +22,8 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Reflex.Gloss
-  build-depends:       base >=4.6 && <=4.9.2,
-                       gloss >= 1.10.2.5 && < 1.11,
+  build-depends:       base <5,
+                       gloss >= 1.13 && <1.14,
                        reflex >=0.5 && <0.6,
                        dependent-sum >= 0.3.2.1 && < 0.5,
                        transformers >= 0.4.2 && < 0.5.3,

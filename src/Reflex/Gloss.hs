@@ -30,16 +30,20 @@ import           Graphics.Gloss.Interface.IO.Game (playIO)
 import qualified Graphics.Gloss.Interface.IO.Game as G
 
 import           Reflex
-import           Reflex.Host.Class (newEventWithTriggerRef, runHostFrame, fireEvents)
+import           Reflex.Host.Class
+  (newEventWithTriggerRef, runHostFrame, fireEvents, fireEventRef)
 
 -- | Synonym for a Gloss Event to prevent name clashes.
 type InputEvent = G.Event
 
 -- | Convert the refresh and input events to a Behavior t Picture.
-type GlossApp t m = (Reflex t, MonadHold t m, MonadFix m)
-                  => Event t Float
-                  -> Event t InputEvent
-                  -> m (Behavior t Picture)
+type GlossApp t m
+  = ( Reflex t, MonadHold t m, MonadFix m
+    , PostBuild t m
+    )
+  => Event t Float
+  -> Event t InputEvent
+  -> m (Behavior t Picture)
 -- | Play the 'GlossApp' in a window, updating when the Behavior t Picture
 --   changes.
 playReflex
@@ -53,7 +57,13 @@ playReflex display color frequency network =
     (tickEvent,  tickTriggerRef)  <- newEventWithTriggerRef
     (inputEvent, inputTriggerRef) <- newEventWithTriggerRef
 
-    picture <- runHostFrame $ network tickEvent inputEvent
+    (postBuildEvent, postBuildTriggerRef) <- newEventWithTriggerRef
+
+    picture <-
+      runHostFrame $
+      runPostBuildT (network tickEvent inputEvent) postBuildEvent
+
+    () <- fireEventRef postBuildTriggerRef ()
 
     liftIO $ playIO display
            color
