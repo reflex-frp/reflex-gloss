@@ -1,1 +1,3 @@
-# A gloss interface for reflex
+# Reflex Gloss
+
+A gloss interface for reflex
