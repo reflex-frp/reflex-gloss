@@ -20,11 +20,15 @@ category:            Graphics
 build-type:          Simple
 cabal-version:       >=1.10
 
+tested-with:
+  GHC  ==8.0.2 || ==8.2.2 || ==8.4.4 || ==8.6.5,
+  GHCJS ==8.4
+
 library
   exposed-modules:     Reflex.Gloss
-  build-depends:       base >=4.6 && < 4.13,
-                       gloss >=1.10.2.5 && < 1.14,
-                       reflex >=0.5 && < 0.6,
+  build-depends:       base >= 4.6 && < 4.13,
+                       gloss >= 1.10.2.5 && < 1.14,
+                       reflex >= 0.5 && < 0.7,
                        dependent-sum >= 0.3.2.1 && < 0.5,
                        transformers >= 0.4.2 && < 0.6,
                        mtl >=2.2.1 && < 2.3
